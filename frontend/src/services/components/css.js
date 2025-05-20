@@ -55,3 +55,35 @@ export default function MachineItem({ m }) {
     </motion.div>
   );
 }
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import { fetchSystems } from '../../services/api.js';
+import MachineItem from './MachineItem.jsx';
+import { AnimatePresence } from 'framer-motion';
+
+export default function MachineList() {
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    fetchSystems().then(r => setList(r.data));
+  }, []);
+
+  return (
+    <div
+      className="p-8 min-h-screen bg-darkbg"
+      style={{ fontFamily: 'Inter, sans-serif', color: 'white' }}
+    >
+      <h1 className="text-3xl font-bold mb-8 text-center">System Machines Status</h1>
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence>
+          {list.map(m => (
+            <MachineItem key={m._id} m={m} />
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}

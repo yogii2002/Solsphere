@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import MachineList from './services/components/MachineList.jsx';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <div>
      
-      <div className="p-8">
-        <h1 className="text-2xl mb-4">System Health Dashboard</h1>
+      <div className="p-8  bg-gray-800 text-white">
+        <h2 className="text-4xl mb-4  ">System Health Dashboard</h2>
+        <p>Your system health get refresh every minute!</p>
         <MachineList />
       </div>
        

@@ -1,16 +1,17 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const SystemStatus = require('../models/SystemStatus');
+
 router.post('/', async (req, res) => {
-  const data = new SystemStatus(req.body);
-  await data.save();
-  res.sendStatus(201);
+  try {
+    const s = new SystemStatus(req.body);
+    await s.save();
+    res.status(201).end();
+  } catch (e) { res.status(500).json({ error: e.message }); }
 });
+
 router.get('/', async (req, res) => {
-  const { os, issue } = req.query;
-  let query = {};
-  if (issue) query[issue] = false;
-  const list = await SystemStatus.find(query).sort('-timestamp');
+  const list = await SystemStatus.find().sort('-timestamp');
   res.json(list);
 });
+
 module.exports = router;
